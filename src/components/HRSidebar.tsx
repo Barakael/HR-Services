@@ -115,23 +115,23 @@ export function HRSidebar() {
   return (
     <aside
       className={cn(
-        "flex flex-col bg-sidebar text-sidebar-foreground h-screen sticky top-0 transition-all duration-300 z-30",
+        "flex flex-col bg-white dark:bg-slate-950 text-gray-900 dark:text-white font-semibold h-screen sticky top-0 transition-all duration-300 z-30 border-r border-border",
         collapsed ? "w-16" : "w-64"
       )}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 h-16 border-b border-sidebar-border">
+      <div className="flex items-center justify-between px-4 h-20 border-b border-border">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <Briefcase className="h-6 w-6 text-sidebar-primary" />
-            <span className="font-semibold text-base text-sidebar-accent-foreground tracking-tight">
-              PeopleHub
+            <Briefcase className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+            <span className="font-semibold text-base text-gray-900 dark:text-white tracking-tight">
+            HR Portal
             </span>
           </div>
         )}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="p-1.5 rounded-md hover:bg-sidebar-accent transition-colors text-sidebar-foreground"
+          className="p-1.5 rounded-md hover:bg- transition-colors text-sidebar-foreground"
         >
           {collapsed ? <Menu className="h-4 w-4" /> : <X className="h-4 w-4" />}
         </button>
@@ -144,7 +144,7 @@ export function HRSidebar() {
             {section.label && !collapsed && (
               <button
                 onClick={() => toggleSection(section.label)}
-                className="flex items-center justify-between w-full px-2 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-sidebar-foreground/50 hover:text-sidebar-foreground/70 transition-colors"
+                className="flex items-center justify-between w-full px-2 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
               >
                 {section.label}
                 {openSections[section.label] ? (
@@ -165,13 +165,13 @@ export function HRSidebar() {
                         end
                         className={cn(
                           "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-all duration-150",
-                          "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                          "hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-white",
                           collapsed && "justify-center px-0"
                         )}
-                        activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                        activeClassName="bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium"
                         title={collapsed ? item.title : undefined}
                       >
-                        <item.icon className={cn("h-4 w-4 shrink-0", isActive && "text-sidebar-primary")} />
+                        <item.icon className={cn("h-4 w-4 shrink-0", isActive && "text-blue-600 dark:text-blue-400")} />
                         {!collapsed && <span>{item.title}</span>}
                       </NavLink>
                     </li>
@@ -185,14 +185,14 @@ export function HRSidebar() {
 
       {/* Footer */}
       {!collapsed && (
-        <div className="p-4 border-t border-sidebar-border">
+        <div className="p-4 border-t border-border">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-full bg-sidebar-accent flex items-center justify-center text-xs font-semibold text-sidebar-accent-foreground">
+            <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900/60 flex items-center justify-center text-xs font-semibold text-blue-700 dark:text-blue-300">
               JD
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-medium text-sidebar-accent-foreground truncate">John Doe</p>
-              <p className="text-xs text-sidebar-foreground/60 truncate">HR Manager</p>
+              <p className="text-sm font-medium text-gray-900 dark:text-white truncate">John Doe</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 truncate">HR Manager</p>
             </div>
           </div>
         </div>
