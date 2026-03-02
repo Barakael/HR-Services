@@ -56,7 +56,6 @@ const hrAdminSections: NavSection[] = [
     items: [
       { title: "Employees", url: "/employees", icon: Users },
       { title: "Departments", url: "/departments", icon: Building2 },
-      { title: "Org Chart", url: "/org-chart", icon: Network },
     ],
   },
   {
