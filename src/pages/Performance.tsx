@@ -60,7 +60,7 @@ const Performance = () => {
       title="Performance"
       subtitle="Rate and review employee performance (1-10 scale)"
       actions={
-        <Button onClick={openAdd} className="bg-accent text-accent-foreground hover:bg-accent/90 font-medium">
+        <Button onClick={openAdd}>
           <Plus className="h-4 w-4 mr-2" /> Add Review
         </Button>
       }
@@ -164,7 +164,7 @@ const Performance = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-            <Button onClick={handleSave} className="bg-accent text-accent-foreground hover:bg-accent/90">Submit Review</Button>
+            <Button onClick={handleSave}>Submit Review</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

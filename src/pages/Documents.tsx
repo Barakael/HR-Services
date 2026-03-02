@@ -75,7 +75,7 @@ const Documents = () => {
       title="Documents"
       subtitle="Employee documents and records"
       actions={
-        <Button onClick={openAdd} className="bg-accent text-accent-foreground hover:bg-accent/90 font-medium">
+        <Button onClick={openAdd}>
           <Plus className="h-4 w-4 mr-2" /> Upload Document
         </Button>
       }
@@ -155,7 +155,7 @@ const Documents = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-            <Button onClick={handleSave} className="bg-accent text-accent-foreground hover:bg-accent/90">Upload</Button>
+            <Button onClick={handleSave}>Upload</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

@@ -70,7 +70,7 @@ const Departments = () => {
       title="Departments"
       subtitle="Manage organizational structure"
       actions={
-        <Button onClick={openAdd} className="bg-blue-600 text-white hover:bg-blue-700 font-medium">
+        <Button onClick={openAdd}>
           <Plus className="h-4 w-4 mr-2" /> Add Department
         </Button>
       }
@@ -130,7 +130,7 @@ const Departments = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-            <Button onClick={handleSave} className="bg-accent text-accent-foreground hover:bg-accent/90">{editing ? "Save Changes" : "Add Department"}</Button>
+            <Button onClick={handleSave}>{editing ? "Save Changes" : "Add Department"}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

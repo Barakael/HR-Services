@@ -51,10 +51,10 @@ const Transfers = () => {
   return (
     <HRLayout
       title="Transfers"
-      subtitle="Internal employee movements"
+      subtitle="Internal employee movements, transfers, promotions, and position changes"
       actions={
-        <Button onClick={openAdd} className="bg-accent text-accent-foreground hover:bg-accent/90 font-medium">
-          <Plus className="h-4 w-4 mr-2" /> Initiate Transfer
+        <Button onClick={openAdd}>
+          <Plus className="h-4 w-4 mr-2" /> Transfer
         </Button>
       }
     >
@@ -139,7 +139,7 @@ const Transfers = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-            <Button onClick={handleSave} className="bg-accent text-accent-foreground hover:bg-accent/90">Submit Transfer</Button>
+            <Button onClick={handleSave}>Submit Transfer</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

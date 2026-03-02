@@ -55,7 +55,7 @@ const Training = () => {
       title="Training"
       subtitle="Company-wide learning management"
       actions={
-        <Button onClick={openAdd} className="bg-accent text-accent-foreground hover:bg-accent/90 font-medium">
+        <Button onClick={openAdd}>
           <Plus className="h-4 w-4 mr-2" /> Add Training
         </Button>
       }
@@ -142,7 +142,7 @@ const Training = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-            <Button onClick={handleSave} className="bg-accent text-accent-foreground hover:bg-accent/90">Add Program</Button>
+            <Button onClick={handleSave}>Add Program</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

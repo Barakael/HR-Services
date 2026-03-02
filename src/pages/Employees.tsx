@@ -80,7 +80,7 @@ const Employees = () => {
       title="Employees"
       subtitle="Manage your workforce directory"
       actions={
-        <Button onClick={openAdd} className="bg-blue-600 text-white hover:bg-blue-700 font-medium">
+        <Button onClick={openAdd}>
           <Plus className="h-4 w-4 mr-2" />
           Add Employee
         </Button>
@@ -182,7 +182,7 @@ const Employees = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-            <Button onClick={handleSave} className="bg-accent text-accent-foreground hover:bg-accent/90">{editingEmployee ? "Save Changes" : "Add Employee"}</Button>
+            <Button onClick={handleSave}>{editingEmployee ? "Save Changes" : "Add Employee"}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

@@ -55,7 +55,7 @@ const Recruitment = () => {
       title="Recruitment"
       subtitle="Job postings and applicant tracking"
       actions={
-        <Button onClick={openAdd} className="bg-accent text-accent-foreground hover:bg-accent/90 font-medium">
+        <Button onClick={openAdd}>
           <Plus className="h-4 w-4 mr-2" /> Post Job
         </Button>
       }
@@ -152,7 +152,7 @@ const Recruitment = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-            <Button onClick={handleSave} className="bg-accent text-accent-foreground hover:bg-accent/90">Post Job</Button>
+            <Button onClick={handleSave}>Post Job</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

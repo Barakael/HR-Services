@@ -71,7 +71,7 @@ const LeaveManagement = () => {
       title="Leave Management"
       subtitle="Track time-off requests and balances"
       actions={
-        <Button onClick={openRequest} className="bg-accent text-accent-foreground hover:bg-accent/90 font-medium">
+        <Button onClick={openRequest}>
           <Plus className="h-4 w-4 mr-2" /> Request Leave
         </Button>
       }
@@ -169,7 +169,7 @@ const LeaveManagement = () => {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-            <Button onClick={handleSubmit} className="bg-accent text-accent-foreground hover:bg-accent/90">Submit Request</Button>
+            <Button onClick={handleSubmit}>Submit Request</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

@@ -65,7 +65,7 @@ const ExitManagement = () => {
       title="Exit Management"
       subtitle="Manage employee offboarding and clearance processes"
       actions={
-        <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-medium">
+        <Button>
           <Plus className="h-4 w-4 mr-2" />
           Initiate Exit
         </Button>
