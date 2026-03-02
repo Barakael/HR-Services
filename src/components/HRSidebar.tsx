@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "@/components/NavLink";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   BookOpen,
@@ -18,7 +18,6 @@ import {
   Landmark,
   CalendarDays,
   Clock,
-  Fingerprint,
   CheckSquare,
   BarChart3,
   TrendingUp,
@@ -29,8 +28,12 @@ import {
   Briefcase,
   Menu,
   X,
+  User,
+  ListChecks,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface NavSection {
   label: string;
@@ -56,13 +59,12 @@ const navSections: NavSection[] = [
     items: [
       { title: "Employees", url: "/employees", icon: Users },
       { title: "Departments", url: "/departments", icon: Building2 },
-      { title: "Org Chart", url: "/org-chart", icon: Network },
       { title: "Documents", url: "/documents", icon: FileText },
       { title: "Surveys", url: "/surveys", icon: ClipboardList },
       { title: "Recruitment", url: "/recruitment", icon: UserPlus },
       { title: "Training", url: "/training", icon: GraduationCap },
       { title: "Transfers", url: "/transfers", icon: ArrowRightLeft },
-      { title: "Exit", url: "/exit", icon: LogOut },
+     
     ],
   },
   {
@@ -93,6 +95,7 @@ const navSections: NavSection[] = [
     items: [
       { title: "Help Desk", url: "/help-desk", icon: Headphones },
       { title: "User Manual", url: "/user-manual", icon: HelpCircle },
+       { title: "Exit", url: "/exit", icon: LogOut },
     ],
   },
 ];
@@ -115,7 +118,7 @@ export function HRSidebar() {
   return (
     <aside
       className={cn(
-        "flex flex-col bg-white dark:bg-slate-950 text-gray-900 dark:text-white font-semibold h-screen sticky top-0 transition-all duration-300 z-30 border-r border-border",
+        "flex flex-col bg-white dark:bg-slate-900 text-slate-900 dark:text-white h-screen sticky top-0 transition-all duration-300 z-30 border-r border-border",
         collapsed ? "w-16" : "w-64"
       )}
     >
@@ -187,7 +190,7 @@ export function HRSidebar() {
       {!collapsed && (
         <div className="p-4 border-t border-border">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900/60 flex items-center justify-center text-xs font-semibold text-blue-700 dark:text-blue-300">
+            <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-slate-900/60 flex items-center justify-center text-xs font-semibold text-blue-700 dark:text-blue-300">
               JD
             </div>
             <div className="min-w-0">
