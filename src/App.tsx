@@ -4,6 +4,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
+import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ExitManagement from "./pages/ExitManagement";
 import LeaveManagement from "./pages/LeaveManagement";
@@ -19,50 +22,57 @@ import Approvals from "./pages/Approvals";
 import Reports from "./pages/Reports";
 import Payslips from "./pages/Payslips";
 import MyTraining from "./pages/MyTraining";
+import MyProfile from "./pages/MyProfile";
+import Onboarding from "./pages/Onboarding";
+import HelpDesk from "./pages/HelpDesk";
+import Attendance from "./pages/Attendance";
 import { PlaceholderPage } from "./components/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 import {
-  Target, Network, Landmark, Clock, Fingerprint,
-  Headphones, HelpCircle,
+  Target, Network, Landmark, HelpCircle,
 } from "lucide-react";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <ThemeProvider>
+  <AuthProvider>
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/my-training" element={<MyTraining />} />
-          <Route path="/my-performance" element={<PlaceholderPage title="My Performance" subtitle="View your goals and feedback" icon={Target} />} />
-          <Route path="/employees" element={<Employees />} />
-          <Route path="/departments" element={<Departments />} />
-          <Route path="/org-chart" element={<PlaceholderPage title="Org Chart" subtitle="Visual reporting hierarchy" icon={Network} />} />
-          <Route path="/documents" element={<Documents />} />
-          <Route path="/surveys" element={<Surveys />} />
-          <Route path="/recruitment" element={<Recruitment />} />
-          <Route path="/training" element={<Training />} />
-          <Route path="/transfers" element={<Transfers />} />
-          <Route path="/exit" element={<ExitManagement />} />
-          <Route path="/payslips" element={<Payslips />} />
-          <Route path="/bank-tax" element={<PlaceholderPage title="Bank & Tax" subtitle="Manage banking and tax information" icon={Landmark} />} />
-          <Route path="/leave" element={<LeaveManagement />} />
-          <Route path="/attendance" element={<PlaceholderPage title="Attendance" subtitle="Daily clock-in/out records" icon={Clock} />} />
-          <Route path="/biometric-shifts" element={<PlaceholderPage title="Biometric & Shifts" subtitle="Shift scheduling and biometric integration" icon={Fingerprint} />} />
-          <Route path="/approvals" element={<Approvals />} />
-          <Route path="/performance" element={<Performance />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/help-desk" element={<PlaceholderPage title="Help Desk" subtitle="IT support ticketing system" icon={Headphones} />} />
-          <Route path="/user-manual" element={<PlaceholderPage title="User Manual" subtitle="System documentation" icon={HelpCircle} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><MyProfile /></ProtectedRoute>} />
+          <Route path="/my-training" element={<ProtectedRoute><MyTraining /></ProtectedRoute>} />
+          <Route path="/my-performance" element={<ProtectedRoute><PlaceholderPage title="My Performance" subtitle="View your goals and feedback" icon={Target} /></ProtectedRoute>} />
+          <Route path="/employees" element={<ProtectedRoute role="hr_admin"><Employees /></ProtectedRoute>} />
+          <Route path="/departments" element={<ProtectedRoute role="hr_admin"><Departments /></ProtectedRoute>} />
+          <Route path="/org-chart" element={<ProtectedRoute role="hr_admin"><PlaceholderPage title="Org Chart" subtitle="Visual reporting hierarchy" icon={Network} /></ProtectedRoute>} />
+          <Route path="/documents" element={<ProtectedRoute><Documents /></ProtectedRoute>} />
+          <Route path="/surveys" element={<ProtectedRoute><Surveys /></ProtectedRoute>} />
+          <Route path="/recruitment" element={<ProtectedRoute role="hr_admin"><Recruitment /></ProtectedRoute>} />
+          <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
+          <Route path="/training" element={<ProtectedRoute role="hr_admin"><Training /></ProtectedRoute>} />
+          <Route path="/transfers" element={<ProtectedRoute role="hr_admin"><Transfers /></ProtectedRoute>} />
+          <Route path="/exit" element={<ProtectedRoute role="hr_admin"><ExitManagement /></ProtectedRoute>} />
+          <Route path="/payslips" element={<ProtectedRoute><Payslips /></ProtectedRoute>} />
+          <Route path="/bank-tax" element={<ProtectedRoute role="hr_admin"><PlaceholderPage title="Bank & Tax" subtitle="Manage banking and tax information" icon={Landmark} /></ProtectedRoute>} />
+          <Route path="/leave" element={<ProtectedRoute><LeaveManagement /></ProtectedRoute>} />
+          <Route path="/attendance" element={<ProtectedRoute><Attendance /></ProtectedRoute>} />
+          <Route path="/approvals" element={<ProtectedRoute role="hr_admin"><Approvals /></ProtectedRoute>} />
+          <Route path="/performance" element={<ProtectedRoute role="hr_admin"><Performance /></ProtectedRoute>} />
+          <Route path="/reports" element={<ProtectedRoute role="hr_admin"><Reports /></ProtectedRoute>} />
+          <Route path="/help-desk" element={<ProtectedRoute><HelpDesk /></ProtectedRoute>} />
+          <Route path="/user-manual" element={<ProtectedRoute><PlaceholderPage title="User Manual" subtitle="System documentation" icon={HelpCircle} /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
+  </AuthProvider>
   </ThemeProvider>
 );
 

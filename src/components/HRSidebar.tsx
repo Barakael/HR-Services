@@ -35,36 +35,45 @@ import {
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 
-interface NavSection {
-  label: string;
-  items: { title: string; url: string; icon: React.ElementType }[];
+interface NavItem {
+  title: string;
+  url: string;
+  icon: React.ElementType;
 }
 
-const navSections: NavSection[] = [
+interface NavSection {
+  label: string;
+  items: NavItem[];
+}
+
+const hrAdminSections: NavSection[] = [
   {
     label: "",
-    items: [
-      { title: "Dashboard", url: "/", icon: LayoutDashboard },
-    ],
+    items: [{ title: "Dashboard", url: "/", icon: LayoutDashboard }],
   },
   {
-    label: "My Work",
-    items: [
-      { title: "My Training", url: "/my-training", icon: BookOpen },
-      { title: "My Performance", url: "/my-performance", icon: Target },
-    ],
-  },
-  {
-    label: "Human Resources",
+    label: "People",
     items: [
       { title: "Employees", url: "/employees", icon: Users },
       { title: "Departments", url: "/departments", icon: Building2 },
-      { title: "Documents", url: "/documents", icon: FileText },
-      { title: "Surveys", url: "/surveys", icon: ClipboardList },
-      { title: "Recruitment", url: "/recruitment", icon: UserPlus },
-      { title: "Training", url: "/training", icon: GraduationCap },
+      { title: "Org Chart", url: "/org-chart", icon: Network },
+    ],
+  },
+  {
+    label: "Recruitment",
+    items: [
+      { title: "Job Postings", url: "/recruitment", icon: UserPlus },
+      { title: "Onboarding", url: "/onboarding", icon: ListChecks },
       { title: "Transfers", url: "/transfers", icon: ArrowRightLeft },
-     
+      { title: "Exit", url: "/exit", icon: LogOut },
+    ],
+  },
+  {
+    label: "Time & Leave",
+    items: [
+      { title: "Leave", url: "/leave", icon: CalendarDays },
+      { title: "Attendance", url: "/attendance", icon: Clock },
+      { title: "Approvals", url: "/approvals", icon: CheckSquare },
     ],
   },
   {
@@ -75,44 +84,89 @@ const navSections: NavSection[] = [
     ],
   },
   {
-    label: "Time & Attendance",
+    label: "Development",
+    items: [
+      { title: "Training", url: "/training", icon: GraduationCap },
+      { title: "Performance", url: "/performance", icon: TrendingUp },
+      { title: "Surveys", url: "/surveys", icon: ClipboardList },
+    ],
+  },
+  {
+    label: "Reports & Docs",
+    items: [
+      { title: "Reports", url: "/reports", icon: BarChart3 },
+      { title: "Documents", url: "/documents", icon: FileText },
+    ],
+  },
+  {
+    label: "System",
+    items: [{ title: "Help Desk", url: "/help-desk", icon: Headphones }],
+  },
+];
+
+const employeeSections: NavSection[] = [
+  {
+    label: "",
+    items: [{ title: "Dashboard", url: "/", icon: LayoutDashboard }],
+  },
+  {
+    label: "My Info",
+    items: [
+      { title: "My Profile", url: "/profile", icon: User },
+      { title: "Documents", url: "/documents", icon: FileText },
+      { title: "Onboarding", url: "/onboarding", icon: ListChecks },
+    ],
+  },
+  {
+    label: "Time & Leave",
     items: [
       { title: "Leave", url: "/leave", icon: CalendarDays },
       { title: "Attendance", url: "/attendance", icon: Clock },
-      { title: "Biometric & Shifts", url: "/biometric-shifts", icon: Fingerprint },
     ],
   },
   {
-    label: "Management",
+    label: "Payroll",
+    items: [{ title: "Payslips", url: "/payslips", icon: Receipt }],
+  },
+  {
+    label: "Development",
     items: [
-      { title: "Approvals", url: "/approvals", icon: CheckSquare },
-      { title: "Performance", url: "/performance", icon: TrendingUp },
-      { title: "Reports", url: "/reports", icon: BarChart3 },
+      { title: "My Training", url: "/my-training", icon: BookOpen },
+      { title: "My Performance", url: "/my-performance", icon: Target },
+      { title: "Surveys", url: "/surveys", icon: ClipboardList },
     ],
   },
   {
-    label: "ICT Support",
+    label: "Support",
     items: [
       { title: "Help Desk", url: "/help-desk", icon: Headphones },
       { title: "User Manual", url: "/user-manual", icon: HelpCircle },
-       { title: "Exit", url: "/exit", icon: LogOut },
     ],
   },
 ];
 
+
 export function HRSidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { currentUser, isHRAdmin, logout } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
+
+  const sections = isHRAdmin ? hrAdminSections : employeeSections;
+
   const [openSections, setOpenSections] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
-    navSections.forEach((s) => {
-      if (s.label) initial[s.label] = true;
-    });
+    sections.forEach((s) => { if (s.label) initial[s.label] = true; });
     return initial;
   });
 
   const toggleSection = (label: string) => {
     setOpenSections((prev) => ({ ...prev, [label]: !prev[label] }));
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
   };
 
   return (
@@ -134,7 +188,7 @@ export function HRSidebar() {
         )}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="p-1.5 rounded-md hover:bg- transition-colors text-sidebar-foreground"
+          className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors text-gray-600 dark:text-gray-400"
         >
           {collapsed ? <Menu className="h-4 w-4" /> : <X className="h-4 w-4" />}
         </button>
@@ -142,7 +196,7 @@ export function HRSidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-1 scrollbar-thin">
-        {navSections.map((section) => (
+        {sections.map((section) => (
           <div key={section.label || "top"}>
             {section.label && !collapsed && (
               <button
@@ -187,19 +241,41 @@ export function HRSidebar() {
       </nav>
 
       {/* Footer */}
-      {!collapsed && (
-        <div className="p-4 border-t border-border">
+      <div className="border-t border-border p-3">
+        {!collapsed ? (
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-slate-900/60 flex items-center justify-center text-xs font-semibold text-blue-700 dark:text-blue-300">
-              JD
+            <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-slate-800 flex items-center justify-center text-xs font-bold text-blue-700 dark:text-blue-300 shrink-0">
+              {currentUser?.avatar ?? "?"}
             </div>
-            <div className="min-w-0">
-              <p className="text-sm font-medium text-gray-900 dark:text-white truncate">John Doe</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400 truncate">HR Manager</p>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{currentUser?.name}</p>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                {isHRAdmin
+                  ? <ShieldCheck className="h-3 w-3 text-blue-500 shrink-0" />
+                  : <User className="h-3 w-3 text-emerald-500 shrink-0" />}
+                <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                  {isHRAdmin ? "HR Admin" : "Employee"}
+                </span>
+              </div>
             </div>
+            <button
+              onClick={handleLogout}
+              title="Sign out"
+              className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors shrink-0"
+            >
+              <LogOut className="h-4 w-4" />
+            </button>
           </div>
-        </div>
-      )}
+        ) : (
+          <button
+            onClick={handleLogout}
+            title="Sign out"
+            className="flex items-center justify-center w-full p-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors"
+          >
+            <LogOut className="h-4 w-4" />
+          </button>
+        )}
+      </div>
     </aside>
   );
 }
